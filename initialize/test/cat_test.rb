@@ -4,17 +4,17 @@ require './lib/cat'
 
 class CatTest < Minitest::Test
   def test_it_exists
-    carlos = Cat.new("Carlos")
+    carlos = Cat.new("Carlos", "meow")
     assert_instance_of Cat, carlos
   end
 
   def test_it_has_a_name
-    carlos = Cat.new("Carlos")
+    carlos = Cat.new("Carlos", "meow")
     assert_equal "Carlos", carlos.name
   end
 
   def test_it_has_a_sound
-    carlos = Cat.new("Carlos")
+    carlos = Cat.new("Carlos", "meow")
     assert_equal "meow", carlos.sound
   end
 end

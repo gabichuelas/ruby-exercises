@@ -9,12 +9,12 @@ class BeaverTest < Minitest::Test
   end
 
   def test_it_has_a_name
-    barry = Beaver.new("Barry")
+    barry = Beaver.new("Barry the Beaver")
     assert_equal "Barry the Beaver", barry.name
   end
 
   def test_it_can_have_a_different_name
-    beatrice = Beaver.new("Beatrice")
+    beatrice = Beaver.new("Beatrice the Beaver")
     assert_equal "Beatrice the Beaver", beatrice.name
   end
 
