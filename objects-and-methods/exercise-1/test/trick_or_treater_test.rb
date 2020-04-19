@@ -14,7 +14,7 @@ class TrickOrTreaterTest < Minitest::Test
   end
 
   def test_wears_a_different_costume
-    skip
+    # skip
     costume = Costume.new("Pony")
     trick_or_treater = TrickOrTreater.new(costume)
     assert_equal "Pony", trick_or_treater.dressed_up_as
@@ -62,4 +62,3 @@ class TrickOrTreaterTest < Minitest::Test
     assert_equal 0, trick_or_treater.candy_count
   end
 end
-
