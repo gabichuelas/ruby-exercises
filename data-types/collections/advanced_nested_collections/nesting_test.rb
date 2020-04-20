@@ -2,6 +2,7 @@ require './nesting'
 require 'minitest/autorun'
 require 'minitest/pride'
 
+
 # The intent of this exercise is to practice working with nested collections.
 # Some tests will be able to pass without any enumeration, and others will require
 # more complex iteration over multiple portions of the nested collection.
@@ -16,7 +17,7 @@ require 'minitest/pride'
 class NestedTest < MiniTest::Test
 
   def test_list_of_olive_garden_employess
-    skip
+    # skip
     #^^^ Un-Skip each test
     #=======================
     # EXAMPLE
@@ -26,57 +27,76 @@ class NestedTest < MiniTest::Test
   end
 
   def test_pancake_ingredients
-    skip
+    # skip
     #=======================
-    # pancake_ingredients = <your code here>
+    pancake_ingredients = stores[:dennys][:dishes].first[:ingredients]
     #=======================
     assert_equal ["Flour", "Eggs", "Milk", "Syrup"], pancake_ingredients
   end
 
   def test_rissotto_price
-    skip
+    # skip
     #=======================
-    # risotto_price = <your code here>
+    risotto_price = stores[:olive_garden][:dishes][0][:price]
     #=======================
     assert_equal 12, risotto_price
   end
 
   def test_big_mac_ingredients
-    skip
+    # skip
     #=======================
-    # big_mac_ingredients = <your code here>
+    big_mac_ingredients = stores[:macdonalds][:dishes][0][:ingredients]
     #=======================
     assert_equal ['Bun','Hamburger','Ketchup','pickles'], big_mac_ingredients
   end
 
   def test_list_of_restaurants
-    skip
+    # skip
     #=======================
-    # store_names = <your code here>
+    store_names = stores.keys
     #=======================
     assert_equal [:olive_garden, :dennys, :macdonalds], store_names
   end
 
   def test_list_of_dishes_names_for_olive_garden
-    skip
+    # skip
     #=======================
-    # dishes_names = <your code here>
+    dishes_names = stores[:olive_garden][:dishes].map { |dish|
+      # we were able to use one variable bc
+      # the enumerator is working on an array,
+      # unlike the following test.
+      dish[:name]}
     #=======================
     assert_equal ['Risotto', 'Steak'], dishes_names
   end
 
   def test_list_of_employees_across_all_restaurants
-    skip
+    # skip
     #=======================
-    # employee_names = <your code here>
+    # is there a cleaner way to write the following?
+    # employee_names = (
+    #   stores[:olive_garden][:employees] + stores[:dennys][:employees] + stores[:macdonalds][:employees]
+    # ).flatten
+
+    employee_names =
+    # here we will use two variables k,v
+    # bc we are iterating over a hash instead
+    # of an array.
+    stores.map { |k,v|
+      v[:employees]
+    }.flatten
     #=======================
     assert_equal ["Jeff","Zach","Samantha","Bob","Sue","James","Alvin","Simon","Theodore"], employee_names
   end
 
   def test_list_of_all_ingredients_across_all_restaurants
-    skip
+    # skip
     #=======================
-    # ingredients = <your code here>
+    ingredients =
+    stores.map { |k,v|
+      v[:dishes].map { |dish|
+        dish[:ingredients]}
+      }.flatten
     #=======================
     assert_equal ["Rice",
                   "Cheese",
@@ -99,17 +119,29 @@ class NestedTest < MiniTest::Test
   end
 
   def test_full_menu_price_for_olive_garden
-    skip
+    # skip
     #=======================
-    # full_menu_price = <your code here>
+    # full_menu_price =
+    # stores[:olive_garden][:dishes].map { |dish|
+    #   dish[:price]
+    # }.reduce(:+)
+    #REFACTOR:
+    full_menu_price =
+    stores[:olive_garden][:dishes].reduce(0) {
+      |sum, dish| sum += dish[:price] }
+
     #=======================
     assert_equal 27, full_menu_price
   end
 
   def test_full_menu_for_olive_garden
-    skip
+    # skip
     #=======================
-    # olive_garden_menu = <your code here>
+    olive_garden_menu = {}
+    stores[:olive_garden][:dishes].each {
+      |dish| olive_garden_menu[dish[:name]] = dish
+    }
+
     #=======================
     expected = ({"Risotto"=>{:name=>"Risotto", :ingredients=>["Rice", "Cheese", "Butter"], :price=>12},
                   "Steak"=>{:name=>"Steak", :ingredients=>["Beef", "Garlic"], :price=>15}})
@@ -117,9 +149,54 @@ class NestedTest < MiniTest::Test
   end
 
   def test_menu_accross_all_restaurants
-     skip
+     # skip
     #=======================
-    #  full_menu = <your code here>
+    # FIRST TRY
+
+    # olive_garden_menu = {}
+    # stores[:olive_garden][:dishes].each {
+    #   |dish| olive_garden_menu[dish[:name]] = dish
+    # }
+    #
+    # dennys_menu = {}
+    # stores[:dennys][:dishes].each {
+    #   |dish| olive_garden_menu[dish[:name]] = dish
+    # }
+    #
+    # macdonalds_menu = {}
+    # stores[:macdonalds][:dishes].each {
+    #   |dish| olive_garden_menu[dish[:name]] = dish
+    # }
+    #
+    # full_menu = (olive_garden_menu.merge(dennys_menu)).merge(macdonalds_menu)
+
+    # REFACTOR_1
+    # full_menu = {}
+    # stores.keys.each { |store|
+    #   stores[store][:dishes].each {
+    #     |dish| full_menu[dish[:name]] = dish
+    #   }
+    # }
+
+    # REFACTOR_2 (uses each for hash instead of
+    # turning it into an Array first with .keys )
+    # full_menu = {}
+    # stores.each { |store, data|
+    #   data[:dishes].each {
+    #     |dish| full_menu[dish[:name]] = dish
+    #   }
+    # }
+
+    # REFACTOR_3
+
+    full_menu =
+    stores.reduce({}) { |results, store_w_data|
+      (store_w_data[1][:dishes]).each {
+        |dish| results[dish[:name]] = dish
+      }
+      results
+    }
+
     #=======================
     expected = ({"Risotto"=>
                       {:name=>"Risotto", :ingredients=>["Rice", "Cheese", "Butter"], :price=>12},

@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 
-class NestesdCollectionsTest < Minitest::Test
+class NestedCollectionsTest < Minitest::Test
 
   def test_1
     coordinates = [[2,5],[87,2],[56,39],[3,46]]
