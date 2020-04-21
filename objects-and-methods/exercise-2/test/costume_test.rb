@@ -1,7 +1,7 @@
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/costume'
+require_relative '../../exercise-1/lib/costume'
 
 class CostumeTest < Minitest::Test
   def test_costume_style
@@ -10,9 +10,8 @@ class CostumeTest < Minitest::Test
   end
 
   def test_other_style_of_costume
-    skip
+    # skip
     costume = Costume.new("Princess")
     assert_equal "Princess", costume.style
   end
 end
-
