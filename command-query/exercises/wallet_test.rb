@@ -1,7 +1,7 @@
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative 'wallet'
+require_relative '../lib/wallet'
 
 class WalletTest < Minitest::Test
   def test_wallet_starts_at_zero
@@ -10,16 +10,17 @@ class WalletTest < Minitest::Test
   end
 
   def test_add_pennies
-    skip
+    # skip
     wallet = Wallet.new
     wallet << :penny
+    # require 'pry' ; binding.pry
     assert_equal 1, wallet.cents
     3.times { wallet << :penny }
     assert_equal 4, wallet.cents
   end
 
   def test_add_nickels
-    skip
+    # skip
     wallet = Wallet.new
     wallet << :nickel
     assert_equal 5, wallet.cents
@@ -28,7 +29,7 @@ class WalletTest < Minitest::Test
   end
 
   def test_add_dimes
-    skip
+    # skip
     wallet = Wallet.new
     wallet << :dime
     assert_equal 10, wallet.cents
@@ -37,7 +38,7 @@ class WalletTest < Minitest::Test
   end
 
   def test_add_quarters
-    skip
+    # skip
     wallet = Wallet.new
     wallet << :quarter
     assert_equal 25, wallet.cents
@@ -46,7 +47,7 @@ class WalletTest < Minitest::Test
   end
 
   def test_add_dollars
-    skip
+    # skip
     wallet = Wallet.new
     wallet << :dollar
     assert_equal 100, wallet.cents
@@ -55,7 +56,7 @@ class WalletTest < Minitest::Test
   end
 
   def test_take_coins_out
-    skip
+    # skip
     wallet = Wallet.new
     wallet << :penny
     wallet << :penny
@@ -64,12 +65,14 @@ class WalletTest < Minitest::Test
 
     wallet.take(:penny)
     assert_equal 3, wallet.cents
+    # how to take more than 1 coin out?
+
     wallet.take(:penny, :penny)
     assert_equal 1, wallet.cents
   end
 
   def test_take_various_coins_out
-    skip
+    # skip
     wallet = Wallet.new
     wallet << :penny
     wallet << :dime
@@ -81,7 +84,7 @@ class WalletTest < Minitest::Test
   end
 
   def test_ignore_coins_that_are_not_there
-    skip
+    # skip
     wallet = Wallet.new
     wallet << :penny
     wallet.take(:dime)
