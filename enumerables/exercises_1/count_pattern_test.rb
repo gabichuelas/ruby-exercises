@@ -59,11 +59,11 @@ class CountPatternTest < Minitest::Test
   end
 
   def test_count_round_prices
-    skip
+    # skip
     prices = [1.0, 3.9, 5.99, 18.5, 20.0]
     tally = 0
     prices.each { |price|
-      # tally += 1 if
+      tally += 1 if price % 1 == 0
     }
       # what do they mean by round prices?
     assert_equal 2, tally

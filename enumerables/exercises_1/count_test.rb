@@ -49,9 +49,10 @@ class CountTest < Minitest::Test
   end
 
   def test_count_round_prices
-    skip
+    # skip
     prices = [1.0, 3.9, 5.99, 18.5, 20.0]
-    tally = numbers.count {}
+    tally = prices.count { |num|
+      num % 1 == 0 }
     assert_equal 2, tally
   end
 
