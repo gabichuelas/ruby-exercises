@@ -8,9 +8,15 @@ class ZipPatternTest < Minitest::Test
     list1 = ["Alice", "Bob", "Charlie"]
     list2 = ["Xenia", "Yves", "Zach"]
     pairs = []
+
+    # don't understand this next bit of code:
+    # if list1.length == 3, then i will take on
+    # 1, 2, and 3. But list1[3] is nil.
+    # Why does this work?
     list1.length.times do |i|
       pairs << [list1[i], list2[i]]
     end
+
     assert_equal [["Alice", "Xenia"], ["Bob", "Yves"], ["Charlie", "Zach"]], pairs
   end
 
@@ -19,41 +25,48 @@ class ZipPatternTest < Minitest::Test
     list2 = [29, 23, 26]
     prices = []
     list1.length.times do |i|
-      # Your code goes here
+      prices << [list1[i], list2[i]]
     end
     assert_equal [["NY Strip Steak", 29], ["Lamb Stew", 23], ["Grilled Salmon", 26]], prices
   end
 
   def test_lottery_tickets
-    skip
+    # skip
     list1 = ["Alice", "Bob", "Charlie"]
     list2 = [298, 166, 237]
     tickets = []
-    # Your code goes here
+    list1.length.times { |i|
+      tickets << [list1[i], list2[i]] }
     assert_equal [["Alice", 298], ["Bob", 166], ["Charlie", 237]], tickets
   end
 
   def test_equivalent_dna_sequences
-    skip
+    # skip
     strand1 = ["G", "A", "T", "T", "A", "C", "A"]
     strand2 = ["G", "A", "T", "G", "A", "C", "A"]
-    # Your code goes here
+    pairs = []
+    strand1.length.times { |i|
+      pairs << [strand1[i], strand2[i]] }
     assert_equal [["G", "G"], ["A", "A"], ["T", "T"], ["T", "G"], ["A", "A"], ["C", "C"], ["A", "A"]], pairs
   end
 
   def test_solitaire
-    skip
+    # skip
     list1 = ["Ace", "6", "10", "Queen"]
     list2 = [:clubs, :diamonds, :hearts, :spades]
-    # Your code goes here
+    cards = []
+    list1.length.times { |i|
+      cards << [list1[i], list2[i]] }
     assert_equal [["Ace", :clubs], ["6", :diamonds], ["10", :hearts], ["Queen", :spades]], cards
   end
 
   def test_colors
-    skip
+    # skip
     list1 = ["shoes", "tie", "umbrella"]
     list2 = ["red", "pink", "black"]
-    # Your code goes here
+    fashion = []
+    list1.length.times { |i|
+      fashion << [list1[i], list2[i]] }
     assert_equal [["shoes", "red"], ["tie", "pink"], ["umbrella", "black"]], fashion
   end
 
