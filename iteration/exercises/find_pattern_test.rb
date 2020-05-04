@@ -13,6 +13,7 @@ class FindPatternTest < Minitest::Test
         break
       end
     end
+
     assert_equal 29, younger_than_thirty
   end
 
@@ -82,8 +83,7 @@ class FindPatternTest < Minitest::Test
     }
     multiple_of_three = nil
     # Your Code Here
-    end
-
+    
     assert_equal :abdi, multiple_of_three
   end
 
@@ -144,5 +144,4 @@ class FindPatternTest < Minitest::Test
 
     assert_equal "backpack", starts_with_b
   end
-
 end
